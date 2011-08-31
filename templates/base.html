@@ -1,0 +1,173 @@
+{% load i18n %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>{% if SITE_NAME %}{{ SITE_NAME }} : {% endif %}{% block head_title %}{% endblock %}</title>
+        <!--[if IE]><style>
+            div {
+                zoom: 1; /* trigger hasLayout */
+            }
+        </style><![endif]-->
+        <meta name="Description" content="Ruhr-Universit&auml;t Bochum, sechstgr&ouml;&szlig;te Universit&auml;t in Deutschland" />
+		<meta name="Keywords" content="Universit&auml;t Universitaet Universit&auml;t University Uni Bochum Deutschland Germany Hochschule NRW Ruhrgebiet Ruhr-Universit&auml;t RUB Ruhr-Uni Ruhr-Universitaet Studium Forschung Technologietransfer Weiterbildung" lang="de" xml:lang="de" />
+		<meta name="Keywords" content="Ruhr-Universit&auml;t Bochum Bachelor Master degree programmes excellence in research diversity in international contacts" lang="en" xml:lang="en" />
+		<meta http-equiv="content-language" content="de" />
+		<meta name="author"         content="Lehrstuhl für Betriebswirtschaftslehre, insbes. Unternehmensforschung und Rechnungswesen | Prof. Dr. Brigitte Werners" />
+		<meta http-equiv="Expires"  content="" />
+		<meta name="revisit-after"  content="1 days" />
+		<meta name="robots" content="index, follow"/>
+		<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
+
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/facebox.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/announcements.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/accounts.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
+        {% if LANGUAGE_BIDI %}
+        <style type="text/css" media="screen">
+            div.right_panel {
+                float: left; /* hotfix for sidebar */
+            }
+        </style>
+        {% endif %}
+        {% block extra_head_base %}
+            {% block extra_head %}{% endblock %}
+        {% endblock %}
+    </head>
+    
+   <body>
+   {% if site_wide_announcements %}
+	    <div id="site_wide_announcements">
+	        <ul>
+	            {% for announcement in site_wide_announcements %}
+	            <li>
+	                <a href="{{ announcement.get_absolute_url }}">{{ announcement }}</a> -
+	                <a href="{% url announcement_hide announcement.pk %}?next={{ request.path }}">{% trans "Hide announcement" %}</a>
+	            </li>
+	            {% endfor %}
+	        </ul>
+	    </div>
+	{% endif %}
+    <div class="root">
+        <a id="top" name="top"></a>
+        
+        {% if not user.is_authenticated %}
+        
+	        <div id="header1">
+	            <div id="headerbackground1">
+	                <div id="headlines1">
+	                    <a href="http://www.rub.de">
+	                        <img src="{{ STATIC_URL }}images/logo/rub-schriftzug.gif" alt="Ruhr-Universität Bochum" name="Schriftzug" id="schriftzug1"/>
+	                    </a>
+	                    <div id="angebote">
+	                        <div id="angebot_headline">
+	                            Das WiWi-TAS:
+	                        </div>
+	                        <ul>
+	                            <li>
+	                                <a href="/accounts/login/">{% trans "Login" %}</a>
+	                            </li>
+	                            <li>
+	                                <a href="/accounts/register/">{% trans "Registrieren" %}</a>
+	                            </li>
+	                            <li>
+	                                <a href="#">{% trans "Help & Support" %}</a>
+	                            </li>
+	                        </ul>
+	                    </div>
+	                </div>
+	                 
+	                <a href="http://www.rub.de">
+	                    <img src="{{ STATIC_URL }}images/logo/logo-rub-102.gif" alt="Logo RUB" title="Logo der Ruhr-Universität Bochum" id="logorub1"/>
+	                </a>
+	                <div id="metanavigation1">
+	                    <a href="http://www.rub.de/a-z/index.htm">A-Z</a> | 
+	                    <a href="http://www.rub.de/uebersicht/index.htm">&Uuml;bersicht</a> | 
+	                    <a href="http://www.rub.de/suche/index.htm">Suche </a>| 
+	                    <a href="http://www.rub.de/kontakt/index.htm"> Kontakt</a>
+	                </div>
+	                
+	            </div>
+	        </div>
+	        
+        {% else %}
+        
+	        <div id="header2">
+	            <div id="headerbackground2">
+	                <div id="headlines2">
+	                    <a href="http://www.rub.de">
+	                        <img src="{{ STATIC_URL }}images/logo/rub-schriftzug.gif" alt="Ruhr-Universität Bochum" name="Schriftzug" id="schriftzug2"/>
+	                    </a>
+	                    <h1><a href="index.php">Tutorien-Anmelde-System</a></h1>
+	                    <h2>Fakultät für Wirtschaftswissenschaft</h2>
+	                </div>
+	                
+	                <a href="http://www.rub.de">
+	                    <img src="{{ STATIC_URL }}images/logo/logo-rub-102.gif" alt="Logo RUB" title="Logo der Ruhr-Universität Bochum" id="logorub2"/>
+	                </a>
+	                <div id="metanavigation2">
+	                    <a href="http://www.rub.de/a-z/index.htm">A-Z</a> | 
+	                    <a href="http://www.rub.de/uebersicht/index.htm">&Uuml;bersicht</a> | 
+	                    <a href="http://www.rub.de/suche/index.htm">Suche </a>| 
+	                    <a href="http://www.rub.de/kontakt/index.htm"> Kontakt</a>
+	                </div>
+	            </div>
+	        </div>
+	        
+	    {% endif %}
+	    
+        <div id="history">
+            <div id="wo-bin-ich">
+                <a href="http://www.rub.de">RUB</a> &raquo; <a href="http://www.rub.de/wiwi">Fakult&auml;t f&uuml;r Wirtschaftswissenschaft</a> &raquo; <strong>WiWi-TAS</strong>
+            </div>
+            <div id="sprache">
+                    {% block login %}{% endblock %}
+                	{% block top_navi %}{% endblock %}
+                    {% block locale_switcher %}{% endblock %}
+            </div>
+            <div id="clear"></div>
+        </div>
+        
+        <div id="leftcolumn">
+        	{% include "navigation.html" %}
+            {% block navigation %}{% endblock navigation %}
+        </div>
+        
+        {% block body_outer %}
+        <div id="content">
+        	{% if messages %}
+                <ul id="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %} id="message_{{ forloop.counter }}">
+                    	<a href="#" onclick="$('#message_{{ forloop.counter }}').fadeOut(); return false;">
+                    		<small>{% trans "clear" %}</small>
+                    	</a>
+                    	{{message}}
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% block body %}{% endblock body %}
+        </div>
+        {% endblock body_outer %}
+        
+        <div id="clear"></div>
+        
+        <div id="footer">
+            <a href="#top"><img alt="" src="{{ STATIC_URL }}images/navigation/pfeil-gruen-klein-up.gif" width="10" height="10"> Seitenanfang</a>
+            | <a href="index.php?bereich=allgemein&seite=impressum">Impressum</a> | Bitte suchen Sie bei technischen Fragen das <a href="index.php?bereich=helpcenter&seite=index">Help Center</a> auf.
+        </div>
+        
+        <script src="{{ STATIC_URL }}js/jquery-1.3.2.min.js" type="text/javascript"></script>
+        {% block extra_body_base %}
+            {% block extra_body %}{% endblock %}
+        {% endblock %}
+    </div>
+</body>
+
+
+
+</html>

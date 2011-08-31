@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Account Activation" %}
+{% endblock %}
+
+{% block body %}
+	{% if not user.is_authenticated%}
+	
+		<h1>{% trans "Account Activation" %}</h1>
+	
+		{% if account %}
+			<p>{% trans "Account successfully activated" %}</p>
+			<p><a href="{% url auth_login %}">{% trans "Log in" %}</a></p>
+		{% else %}
+			<p>{% trans "Account activation failed" %}</p>
+		{% endif %}
+		
+	{% else %}
+		<h1>404</h1>
+	{% endif %}
+
+{% endblock body %}

@@ -1,0 +1,36 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Registration" %}
+{% endblock %}
+
+{% block body %}
+	{% if not user.is_authenticated%}
+	
+		<h1>{% trans "Registration" %}</h1>
+		<form method="post" action=".">
+			{% csrf_token %}
+			<table class="formtable">
+				{% for field in form %}
+					{% if field.is_hidden %}
+					{% else %}
+						<tr>
+				        	{{ field.errors }}
+				        	<td>{{ field.label_tag }}</td> <td>{{ field }}</td>
+				        </tr>
+			        {% endif %}
+		    	{% endfor %}
+		    		<tr>
+		    			<td></td>
+		    			<td>
+		    				<input type="submit" value="{% trans 'Submit' %}" />
+		    			</td>
+		    		</tr>
+	    	</table>
+		</form>
+	
+	{% else %}
+		<h1>404</h1>
+	{% endif %}
+{% endblock body %}

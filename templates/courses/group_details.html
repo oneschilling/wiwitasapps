@@ -1,0 +1,71 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Course" %}: {{group.course.name}}, {% trans "Group" %}: {{group.name}}
+{% endblock %}
+
+{% block body %}
+   	<h1>{{group.name}}</h1>
+   	
+   	<table>
+    	<tr>
+    		<td>
+    			{% trans "Group Name" %}
+    		</td>
+    		<td>
+    			{{group.name}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Course" %}
+    		</td>
+    		<td>
+    			{{group.course.name}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Description" %}
+    		</td>
+    		<td>
+    			{{group.description}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Capacity" %}
+    		</td>
+    		<td>
+    			{{group.used_capacity}}/{{group.capacity}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Rhythm" %}
+    		</td>
+    		<td>
+    			{{ group.get_rhythm_display }}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Place" %}
+    		</td>
+    		<td>
+    			{{group.place}}
+    		</td>
+    	</tr>
+   	</table>
+   	
+   	{% if user.is_authenticated %}
+    	<form action="/courses/{{course.slug}}/{{group.slug}}/register" method="POST">
+    		{% csrf_token %}
+	    	<input id="register_group_slug" type="hidden" name="register_group_slug" value="{{group.slug}}" />
+	    	<input type="submit" value="{% trans "Register" %}" />
+    	</form>
+   	{% endif %}
+  
+{% endblock %}

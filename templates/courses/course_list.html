@@ -1,0 +1,34 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+	{{site_headline}}
+{% endblock %}
+
+{% block body %}
+   	<h1>{{site_headline}}</h1>
+   	
+   	<table>
+   		<tr>
+   			<th>
+   				{% trans "Name" %}
+   			</th>
+   			<th>
+   				{% trans "Active" %}
+   			</th>
+   		</tr>
+    	{% for course in courses %}
+   		<tr>
+   			<td>
+   				<a href="/courses/{{course.slug}}">
+   					{{course.name}}
+   				</a>
+   			</td>
+   			<td>
+   				{{course.active}}
+   			</td>
+   		</tr>
+    	{% endfor %}
+   	</table>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Course" %}: {{course.name}}
+{% endblock %}
+
+{% block body %}
+   	<h1>{{course.name}}</h1>
+   	
+   	<table>
+    	<tr>
+    		<td>
+    			{% trans "Name" %}
+    		</td>
+    		<td>
+    			{{course.name}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Description" %}
+    		</td>
+    		<td>
+    			{{course.description}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "End of Preference Phase" %}
+    		</td>
+    		<td>
+    			{{course.end_of_preference_phase}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Start of Registration Phase" %}
+    		</td>
+    		<td>
+    			{{course.start_of_registration_phase}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Capacity" %}
+    		</td>
+    		<td>
+    			{{course.used_capacity}}/{{course.capacity}}
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			{% trans "Active" %}
+    		</td>
+    		<td>
+    			{{course.active}}
+    		</td>
+    	</tr>
+   	</table>
+   	
+   	<a href="/courses/{{course.slug}}/preferences">{% trans "Submit your preferences" %}</a>
+   	
+   	<h2>Groups</h2>
+   	
+   	<table>
+    		<tr>
+    			<th>
+    				{% trans "Name" %}
+    			</th>
+    			<th>
+    				{% trans "Capacity" %}
+    			</th>
+    			<th>
+    				{% trans "Register" %}
+    			</th>
+    		</tr>
+    		
+    		{% for group in course_groups %}
+    		<tr>
+		    	<td>
+		    		<a href="/courses/{{course.slug}}/{{group.slug}}">
+		    			{{group.name}}
+		    		</a>
+		    	</td>
+		    	<td>
+		    		{{group.used_capacity}}/{{group.capacity}}
+		    	</td>
+		    	<td>
+		    		{% if user.is_authenticated %}
+			    		<form action="/courses/{{course.slug}}/{{group.slug}}/register" method="POST">
+				    		{% csrf_token %}
+					    	<input id="register_group_slug" type="hidden" name="register_group_slug" value="{{group.slug}}" />
+					    	<input type="submit" value="{% trans "Register" %}" />
+				    	</form>
+				    {% else %}
+				    	{% trans "Login required" %}
+			    	{% endif %}
+		    	</td>
+    		</tr>
+   			{% endfor %}
+   	</table>
+{% endblock %}

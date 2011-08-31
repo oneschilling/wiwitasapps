@@ -1,0 +1,26 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Course" %}: {{group.course.name}}: {% trans "Preferences" %}
+{% endblock %}
+
+{% block body %}
+   	<h1>{% trans "Create Preferences" %}: {{course.name}}</h1>
+   	
+   	<p>
+   		{% trans "Notice that existing preferences will be deleted." %}
+   	</p>
+   	
+   	<form action="/courses/{{course.slug}}/preferences/" method="POST">
+
+   		{% csrf_token %}
+   		{{ formset.management_form }}
+   		{% for form in formset %}
+   			{{ forloop.counter }}. {{ form }}</br>
+   		{% endfor %}
+   		<br/>
+    	<input type="submit" value="{% trans "Submit Preferences" %}" />
+   	</form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Logout" %}
+{% endblock %}
+
+{% block body %}
+	<h1>{% trans "Logout" %}</h1>
+	<ul id="messages">
+	    <li class="success" id="message_1">
+	    	<a href="#" onclick="$('#message_1').fadeOut(); return false;">
+	    		<small>{% trans "clear" %}</small>
+	    	</a>
+	    	{% trans "Logged out" %}
+	    </li>
+	</ul>
+{% endblock body %}

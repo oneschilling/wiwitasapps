@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Error" %}
+{% endblock %}
+
+{% block body %}
+	<h1>{% trans "404 Error" %}</h1>
+	<ul id="messages">
+	    <li class="error" id="message_1">
+	    	<a href="#" onclick="$('#message_1').fadeOut(); return false;">
+	    		<small>{% trans "clear" %}</small>
+	    	</a>
+	    	{% trans "Site not found." %}
+	    </li>
+	</ul>
+{% endblock body %}

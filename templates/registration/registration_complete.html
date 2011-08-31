@@ -1,0 +1,17 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Registration Complete" %}
+{% endblock %}
+
+{% block body %}
+	{% if not user.is_authenticated%}
+	
+		<h1>{% trans "Registration Complete" %}</h1>
+		<p>{% trans "You are now registered. Activation email sent." %}</p>
+	
+	{% else %}
+		<h1>404</h1>
+	{% endif %}
+{% endblock body %}

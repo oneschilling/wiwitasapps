@@ -1,0 +1,32 @@
+{% load i18n %}
+
+{% block navigation %}
+<div class="hauptmenu">
+	<ul>
+		{% if user.is_authenticated %}
+		<li>
+	  		<a href="/courses/my">
+	   			{% trans "My Courses" %}
+	  		</a>
+	 	</li>
+		<li>
+	  		<a href="/courses/">
+	   			{% trans "List of Courses" %}
+	  		</a>
+	 	</li>
+		{% else %}
+	    <li>
+	  		<a href="/accounts/login/">
+	   			{% trans "Login" %}
+	  		</a>
+	 	</li>
+	 	<li>
+	  		<a href="/accounts/register/">
+	   			{% trans "Registrieren" %}
+	  		</a>
+	 	</li>
+	 	{% endif %}
+	</ul>
+</div>
+
+{% endblock navigation %}

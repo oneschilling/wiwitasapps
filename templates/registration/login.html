@@ -1,0 +1,61 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Login" %}
+{% endblock %}
+
+{% block body %}
+	{% if not user.is_authenticated%}
+	
+		<h1>{% trans "Login" %}</h1>
+		
+		<div class="leftcolumn">
+			<form method="post" action=".">
+				{% csrf_token %}
+				<table class="formtable">
+					{% for field in form %}
+						<tr>
+				        	{{ field.errors }}
+				        	<td>{{ field.label_tag }}</td> <td>{{ field }}</td>
+				        </tr>
+			    	{% endfor %}
+			    		<tr>
+			    			<td></td>
+			    			<td>
+			    				<input type="submit" value="{% trans 'Log in' %}" />
+			    			</td>
+			    		</tr>
+		    	</table>
+		    	
+				<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+		</div>
+		
+		<div class="rightcolumn">
+			<table class="formtable">
+				<tr>
+					<td>
+						{% trans "Forgot password" %}?
+					</td>
+					<td>
+						<a href="{% url auth_password_reset %}">{% trans "Reset it" %}</a>!
+					</td>
+				</tr>
+				<tr>
+					<td>
+						{% trans "Not registered" %}?
+					</td>
+					<td>
+						<a href="{% url registration_register %}">{% trans "Register" %}</a>!
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="clear"></div>
+		
+	{% else %}
+		<h1>404</h1>
+	{% endif %}
+{% endblock body %}
