@@ -2,11 +2,6 @@
 
 {% load i18n %}
 
-{% block extra_head_base %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
-    {% block extra_head %}{% endblock %}
-{% endblock %}
-
 {% block login %}
     {% if user.is_authenticated %}
     	<a href="/accounts/logout/"><strong></stromg>{% trans "Logout" %}</strong></a>
@@ -17,25 +12,4 @@
 
 {% block top_navi %}
 	
-{% endblock %}
-
-{% block logo_link_image %}<a href="{% url home %}"><img src="{{ STATIC_URL }}pinax/images/logo.png" alt="Pinax"/></a>{% endblock %}
-
-{% block right_tabs %}
-    {% if user.is_authenticated %}
-        <ul class="tabs">{% spaceless %}
-            <li id="tab_profile"><a href="{% url profile_detail user %}">{% trans "Profile" %}</a></li>
-            <li id="tab_notices"><a href="{% url notification_notices %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
-        {% endspaceless %}</ul>
-    {% endif %}
-{% endblock %}
-
-{% block footer %}
-<div class="legal">
-    {% trans "&copy; 2010 &lt;your company here&gt;" %}
-    - <a href="{% url about %}">{% trans "About" %}</a>
-    - <a href="{% url terms %}">{% trans "Terms of Service" %}</a>
-    - <a href="{% url privacy %}">{% trans "Privacy Policy" %}</a>
-    - <a href="{% url dmca %}">{% trans "DMCA Notice" %}</a>
-</div>
 {% endblock %}
